@@ -1,0 +1,124 @@
+[project]
+name = "fiscal-checks"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.14.0",
+    "fastapi>=0.115.6",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "uvicorn>=0.33.0",
+]
+
+
+[tool.uv]
+dev-dependencies = [
+    "pre-commit>=4.0.1",
+    "ruff>=0.6.9",
+    "isort>=5.10.2",
+    "pydocstyle>=6.3.0",
+    "pycodestyle>=2.12.1",
+]
+
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+exclude = [
+    "migrations",
+    "*.ipynb",
+    "node_modules",
+    "venv",
+]
+target-version = "py312"
+fix = true
+
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+select = ["F", "B", "I", "D", "E", "W"]
+ignore = [
+    "E402",
+    "B905",
+    "N818",
+    "S101",
+    "RUF003",
+    "RUF012",
+    "RUF002",
+    "ISC001",
+    "F405",
+    "F403",
+#    "D100", # Missing docstring in public module
+#    "D101", # Missing docstring in public class
+#    "D102", # Missing docstring in public method
+#    "D103", # Missing docstring in public function
+#    "D104", # Missing docstring in public package
+#    "D107", # Missing docstring in __init__
+    "D",
+]
+extend-safe-fixes = [
+#    "D200", # One-line docstring should fit on one line with quotes
+#    "D205", # 1 blank line required between summary line and description
+#    "D415", # The first line of a docstring should end with a period, question mark, or exclamation point, for grammatical correctness and consistency
+    "W291", # trailing whitespace
+    "E711", # E711 Comparison to `None` should be `cond is not None`
+    "E501", # E501 line too long
+    "B007", # B007 Loop control variable `key` not used within loop body. Help: Rename unused `key` to `_key`
+    "E721", # E721 Use `is` and `is not` for type comparisons, or `isinstance()` for isinstance checks
+    "F841", # F841 Local variable `variable` is assigned to but never used
+    "F811", # F811 redefinition of unused `variable` from line `N`
+    "F401", # F401 `.inspection.InspectedTaskPlanningStrategy` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+    "E722", # E722 Do not use bare `except`
+]
+
+
+[tool.ruff.lint.isort]
+force-single-line = true  # Кожен імпорт на новому рядку
+split-on-trailing-comma = false  # Без ком
+lines-after-imports = 2
+lines-between-types = 1
+case-sensitive = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder", ]
+extra-standard-library = ["typing_extensions"]
+known-first-party = [
+    "active_directory",
+    "activities",
+    "analytics",
+    "api",
+    "auth_manager",
+    "configs",
+    "core",
+    "dashboards",
+    "enterprises",
+    "entities",
+    "equipments",
+    "files",
+    "integrations",
+    "notifications",
+    "quick_access",
+    "resources",
+    "system",
+    "telegrambot",
+    "users",
+    "work",
+    "work_proceeses",
+    "sm",
+    "communication",
+    "events",
+    "submodules"
+]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = 120
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 120
