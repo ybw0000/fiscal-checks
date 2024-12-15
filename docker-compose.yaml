@@ -4,9 +4,31 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./src:/app
+      - ./alembic:/app/alembic
+      - ./src:/app/src
     env_file:
       - .env
-    command: bash -c "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+    working_dir: /app
     ports:
       - "8000:8000"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      # Admin user and main DB
+      POSTGRES_USER: ${DATABASE_ADMIN_USER}
+      POSTGRES_PASSWORD: ${DATABASE_ADMIN_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+      # User for application
+      APP_USER: ${DATABASE_USER}
+      APP_USER_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/postgres/create-app-user.sh:/docker-entrypoint-initdb.d/create-app-user.sh
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres_data:
+    driver: local
