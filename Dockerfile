@@ -1,13 +1,19 @@
 FROM python:3.12.3-bullseye AS builder
 
-WORKDIR /install
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-COPY requirements.txt /requirements.txt
-
-RUN pip install --upgrade pip && pip install uv && uv pip sync --prefix=/install /requirements.txt --system
-
-FROM python:3.12.3-bullseye
+ADD . /app
 
 WORKDIR /app
 
-COPY --from=builder /install /usr/local
+RUN uv sync --frozen
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+RUN chmod +x entrypoint.sh
+RUN chmod +x migrate-db.sh
+RUN chmod +x downgrade-db.sh
+
+EXPOSE 8000
+
+CMD ./entrypoint.sh
