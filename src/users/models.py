@@ -1,9 +1,7 @@
-from typing_extensions import Optional
-
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-
 from src.base.models import BaseModel
+from typing_extensions import Optional
 
 
 class User(BaseModel):
@@ -15,3 +13,4 @@ class User(BaseModel):
     last_name: Mapped[Optional[str]]
     email: Mapped[Optional[str]]
     phone_number: Mapped[Optional[str]]
+    check_symbols: Mapped[Optional[int]]

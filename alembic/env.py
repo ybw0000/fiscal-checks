@@ -9,6 +9,9 @@ from sqlalchemy import pool
 
 from alembic import context
 from src.base.models import Base
+from src.checks.models import Check  # noqa: F401
+from src.checks.models import CheckPayment  # noqa: F401
+from src.checks.models import CheckProduct  # noqa: F401
 from src.conf.settings import settings
 from src.users.models import User  # noqa: F401
 
