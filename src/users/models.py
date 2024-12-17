@@ -15,3 +15,4 @@ class User(BaseModel):
     last_name: Mapped[Optional[str]]
     email: Mapped[Optional[str]]
     phone_number: Mapped[Optional[str]]
+    check_symbols: Mapped[Optional[int]]

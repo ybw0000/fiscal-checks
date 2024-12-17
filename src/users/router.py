@@ -15,6 +15,7 @@ from src.users.schemas import JWTResponseSchema
 from src.users.schemas import UserDTOCreateSchema
 from src.users.schemas import UserDTOReadSchema
 from src.users.schemas import UserDTOSignInSchema
+from src.users.schemas import UserInfoUpdateDTOSchema
 from src.users.service import UserService
 
 
@@ -80,3 +81,16 @@ async def signin(
 ):
     access_token, refresh_token = await service.signin(request_data)
     return JWTResponseSchema(access_token=access_token, refresh_token=refresh_token)
+
+
+@router.patch(
+    "/update",
+    responses={status.HTTP_200_OK: {"model": None}},
+)
+async def update(
+    user: Annotated[User, Depends(get_authenticated_user)],
+    request_data: UserInfoUpdateDTOSchema,
+    service: Annotated[UserService, Depends(get_user_service)],
+):
+    await service.update(user, request_data.model_dump(mode="json", exclude_none=True, exclude_unset=True))
+    return 200

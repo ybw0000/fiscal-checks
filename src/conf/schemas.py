@@ -1,8 +1,8 @@
 from typing import Any
 
+from pydantic import UUID4
 from pydantic import BaseModel
 from pydantic import model_validator
-from pydantic import UUID4
 from starlette.datastructures import URL
 
 
