@@ -1,5 +1,27 @@
-# DEV commands
-### build requirements.txt
+# How to run
+
 ```shell
-  uv pip compile pyproject.toml -o requirements.txt
+    cp .env.sample .env 
+    && chmod 777 dc.sh 
+    && chmod 777 migrate-db.sh
 ```
+
+```shell
+  ./dc.sh up -d
+```
+
+```shell
+  ./migrate-db.sh
+```
+
+## Swagger
+
+http://localhost:8000/api/v1/docs
+
+## Redoc
+
+http://localhost:8000/api/v1/redoc
+
+## Check html display
+
+http://localhost:8000/api/v1/checks/{id}
