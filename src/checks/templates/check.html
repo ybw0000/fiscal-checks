@@ -1,27 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Check Details</title>
+    <title>Title</title>
 </head>
 <body>
-<pre>
-    {% if check %}
-      ФОП {{ check.user.first_name }} {{ check.user.last_name }}
-================================
-{% for product in check.products %}
-{{ (product.quantity|string)[:3] }} х {{ (product.price|string)[:7] }}
-{{ product.name[:max_length-15]}} {{ (product.total|string)[:7] }}
-
---------------------------------
-{% endfor %}
-СУМА                {{ (check.total|string)[:7] }}
-Картка              {{ (check.payment.amount|string)[:7] }}
-Решта               {{ (check.rest|string)[:7] }}
-================================
-14.08.2023 14:42
-      Дякуємо за покупку!
-    {% endif %}
-</pre>
+<pre>{{ data }}</pre>
 </body>
 </html>

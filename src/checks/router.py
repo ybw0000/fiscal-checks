@@ -15,6 +15,7 @@ from src.checks.schemas import CheckDTOResponseSchema
 from src.checks.schemas import ChecksWithPaginationResponseSchema
 from src.checks.schemas import FilterParams
 from src.checks.service import CheckService
+from src.checks.service import MarkupService
 from src.users.dependencies import get_authenticated_user
 from src.users.models import User
 
@@ -46,8 +47,7 @@ async def check_detail(request: Request, id: int, service: Annotated[CheckServic
         request,
         name="check.html",
         context={
-            "check": await service.get_check(id),
-            "max_length": 60,
+            "data": MarkupService(await service.get_check(id)).build_markup(),
         },
     )
 

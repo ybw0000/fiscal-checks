@@ -4,6 +4,7 @@ from typing import Self
 from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic import EmailStr
+from pydantic import Field
 from pydantic import ValidationError
 from pydantic import model_validator
 
@@ -63,3 +64,11 @@ class UserDTOSignInSchema(BaseModel):
 
     username: str
     password: str
+
+
+class UserInfoUpdateDTOSchema(BaseModel):
+    """User DTO check symbols change schema"""
+
+    first_name: str | None = None
+    last_name: str | None = None
+    check_symbols: int | None = Field(None, ge=20)

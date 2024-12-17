@@ -1,7 +1,9 @@
+from typing_extensions import Optional
+
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
+
 from src.base.models import BaseModel
-from typing_extensions import Optional
 
 
 class User(BaseModel):

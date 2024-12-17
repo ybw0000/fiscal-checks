@@ -75,3 +75,12 @@ class BaseService:
         """
         query = select(count(self.MODEL.id)).where(*filters)
         return await self._db_call(self.session.scalar, query)
+
+    async def update(self, obj: BaseModel, values: dict):
+        """Update obj in DB"""
+        for key, value in values.items():
+            setattr(obj, key, value)
+        if hasattr(self.MODEL, "updated_at"):
+            obj.updated_at = datetime.datetime.now(tz=None)
+        await self._commit()
+        return obj
