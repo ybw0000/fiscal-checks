@@ -141,7 +141,7 @@ class MarkupService:
             else:
                 markup_lines.append(self.get_line(part_line, align))
         else:
-            markup_lines = [base_header]
+            markup_lines.append(self.get_line(base_header, align))
 
         markup_lines.append("=" * self.max_symbols)
 

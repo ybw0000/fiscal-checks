@@ -2,11 +2,14 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Literal
 
+from pydantic import AnyHttpUrl
 from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic import Field
+from pydantic import model_validator
 
 from src.checks.models import PaymentTypeEnum
+from src.conf.settings import settings
 
 
 class CheckProductDTOCreateSchema(BaseModel):
@@ -51,8 +54,14 @@ class CheckDTOResponseSchema(BaseModel):
     rest: Decimal
     created_at: datetime
     updated_at: datetime
+    url: AnyHttpUrl | str | None = Field(None, description="URL to check details")
 
     model_config = ConfigDict(from_attributes=True)
+
+    @model_validator(mode="after")
+    def set_url(self):
+        self.url = f"http://localhost:{settings.PORT}/api/v1/checks/{self.id}"
+        return self
 
 
 class FilterParams(BaseModel):
